@@ -1,184 +1,204 @@
-﻿import { Image } from 'expo-image';
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Image } from 'expo-image';
+import { Link } from 'expo-router';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-
-const heroImage =
-  'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80';
+const heroImage =require('../../assets/images/lagos-house.jpg');
+function HouseMark() {
+  return (
+    <View style={styles.houseMark} accessibilityElementsHidden>
+      <View style={styles.roofLeft} />
+      <View style={styles.roofRight} />
+      <View style={styles.houseBody}>
+        <View style={styles.windowGrid}>
+          <View style={styles.windowPane} />
+          <View style={styles.windowPane} />
+          <View style={styles.windowPane} />
+          <View style={styles.windowPane} />
+        </View>
+      </View>
+    </View>
+  );
+}
 
 export default function GetStartedScreen() {
   return (
-    <ThemedView style={styles.page}>
+    <View style={styles.page}>
+      <Image source={heroImage} style={styles.backgroundImage} contentFit="cover" />
+      <View style={styles.imageTint} />
+      <View style={styles.bottomShade} />
+
       <SafeAreaView style={styles.safeArea}>
-        <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-          <View style={styles.frame}>
-            <Image source={{ uri: heroImage }} style={styles.image} contentFit="cover" />
-
-            <View style={styles.overlay} />
-
-            <View style={styles.contentBox}>
-              <ThemedText type="smallBold" style={styles.brand}>Lagos House</ThemedText>
-              <ThemedText type="title" style={styles.title}>
-                Find the right home for your needs
-              </ThemedText>
-              <ThemedText type="small" style={styles.subtitle}>
-                Discover trusted homes, verified agents, and smart rental choices across Lagos.
-              </ThemedText>
-
-              <View style={styles.pillRow}>
-                <ThemedView type="backgroundSelected" style={styles.pill}>
-                  <ThemedText type="small">Verified</ThemedText>
-                </ThemedView>
-                <ThemedView type="backgroundSelected" style={styles.pill}>
-                  <ThemedText type="small">Affordable</ThemedText>
-                </ThemedView>
-                <ThemedView type="backgroundSelected" style={styles.pill}>
-                  <ThemedText type="small">Fast</ThemedText>
-                </ThemedView>
-              </View>
-
-              <Pressable style={styles.primaryButton}>
-                <ThemedText type="smallBold" style={styles.buttonText}>
-                  Get Started
-                </ThemedText>
-              </Pressable>
-
-              <Pressable style={styles.secondaryButton}>
-                <ThemedText type="smallBold" style={styles.secondaryText}>
-                  Skip
-                </ThemedText>
-              </Pressable>
-
-              <ThemedText type="small" style={styles.footerText}>
-                Already have an account?{' '}
-                <ThemedText type="smallBold" style={styles.footerLink}>
-                  Login
-                </ThemedText>
-              </ThemedText>
-            </View>
+        <View style={styles.content}>
+          <View style={styles.brandBlock}>
+            <HouseMark />
+            <Text style={styles.brand}>
+              Lagos<Text style={styles.brandAccent}> House</Text>
+            </Text>
+            <Text style={styles.headline}>Find your perfect home</Text>
+            <Text style={styles.tagline}>Rent. Live. Belong.</Text>
           </View>
-        </ScrollView>
+
+          <View style={styles.footer}>
+            <Link href="/onboarding" asChild>
+              <Pressable
+                accessibilityRole="button"
+                style={({ pressed }) => [styles.primaryButton, pressed && styles.buttonPressed]}>
+                <Text style={styles.buttonText}>Get Started</Text>
+              </Pressable>
+            </Link>
+
+            <Text style={styles.loginPrompt}>
+              Already have an account?{' '}
+              <Text accessibilityRole="link" style={styles.loginLink}>
+                Login
+              </Text>
+            </Text>
+          </View>
+        </View>
       </SafeAreaView>
-    </ThemedView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#0b1d2b',
+    backgroundColor: '#07101a',
   },
-  safeArea: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  scrollContent: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    padding: 24,
-  },
-  frame: {
-    width: '100%',
-    maxWidth: 430,
-    minHeight: 730,
-    borderRadius: 32,
-    overflow: 'hidden',
-    backgroundColor: '#0d2431',
-    position: 'relative',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.15)',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 20 },
-    shadowOpacity: 0.25,
-    shadowRadius: 30,
-    elevation: 12,
-  },
-  image: {
+  backgroundImage: {
+    ...StyleSheet.absoluteFillObject,
     width: '100%',
     height: '100%',
+  },
+  imageTint: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(5, 23, 40, 0.3)',
+  },
+  bottomShade: {
     position: 'absolute',
-    top: 0,
     left: 0,
     right: 0,
     bottom: 0,
+    height: '35%',
+    backgroundColor: 'rgba(0, 0, 0, 0.55)',
   },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(10, 22, 32, 0.55)',
+  safeArea: {
+    flex: 1,
   },
-  contentBox: {
-    position: 'absolute',
-    left: 20,
-    right: 20,
-    bottom: 28,
-    padding: 20,
-    borderRadius: 28,
-    backgroundColor: 'rgba(255,255,255,0.12)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.2)',
-    backdropFilter: 'blur(10px)',
+  content: {
+    flex: 1,
+    width: '100%',
+    maxWidth: 480,
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 26,
+    paddingTop: 44,
+    paddingBottom: 20,
   },
-  brand: {
-    color: '#d9f7f3',
-    letterSpacing: 0.5,
+  brandBlock: {
+    alignItems: 'center',
+  },
+  houseMark: {
+    width: 76,
+    height: 66,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
     marginBottom: 8,
   },
-  title: {
-    color: '#ffffff',
-    fontSize: 34,
-    lineHeight: 42,
-    marginBottom: 10,
+  roofLeft: {
+    position: 'absolute',
+    top: 13,
+    left: 9,
+    width: 39,
+    height: 5,
+    borderRadius: 3,
+    backgroundColor: '#fff',
+    transform: [{ rotate: '-42deg' }],
   },
-  subtitle: {
-    color: '#dfeaf1',
-    fontSize: 14,
-    lineHeight: 22,
-    marginBottom: 18,
+  roofRight: {
+    position: 'absolute',
+    top: 13,
+    right: 9,
+    width: 39,
+    height: 5,
+    borderRadius: 3,
+    backgroundColor: '#fff',
+    transform: [{ rotate: '42deg' }],
   },
-  pillRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-    marginBottom: 20,
-  },
-  pill: {
-    borderRadius: 999,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-  },
-  primaryButton: {
-    backgroundColor: '#1bb894',
-    borderRadius: 16,
-    paddingVertical: 16,
+  houseBody: {
+    width: 56,
+    height: 34,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 12,
+    borderColor: '#00bd83',
+    borderTopWidth: 0,
+    borderRightWidth: 4,
+    borderBottomWidth: 4,
+    borderLeftWidth: 4,
+    borderBottomLeftRadius: 4,
+    borderBottomRightRadius: 4,
+  },
+  windowGrid: {
+    width: 24,
+    height: 24,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 3,
+  },
+  windowPane: {
+    width: 10,
+    height: 10,
+    backgroundColor: '#fff',
+    borderRadius: 1,
+  },
+  brand: {
+    color: '#fff',
+    fontSize: 32,
+    fontWeight: '700',
+    letterSpacing: -1,
+  },
+  brandAccent: {
+    color: '#00bd83',
+  },
+  headline: {
+    color: '#fff',
+    fontSize: 17,
+    fontWeight: '600',
+    marginTop: 8,
+  },
+  tagline: {
+    color: 'rgba(255,255,255,0.9)',
+    fontSize: 14,
+    marginTop: 6,
+  },
+  footer: {
+    paddingBottom: 14,
+  },
+  primaryButton: {
+    minHeight: 54,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 18,
+    backgroundColor: '#00ad78',
+    marginBottom: 20,
+  },
+  buttonPressed: {
+    opacity: 0.82,
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 15,
+    fontWeight: '700',
   },
-  secondaryButton: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.38)',
-    borderRadius: 16,
-    paddingVertical: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 12,
-  },
-  secondaryText: {
-    color: '#ffffff',
-  },
-  footerText: {
-    color: '#e8f3fb',
+  loginPrompt: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '500',
     textAlign: 'center',
   },
-  footerLink: {
-    color: '#4fe0c0',
+  loginLink: {
+    color: '#00d292',
+    fontWeight: '700',
   },
 });
