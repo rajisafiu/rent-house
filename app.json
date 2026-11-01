@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rent_house",
-    "slug": "rent_house",
+    "name": "Lagos House",
+    "slug": "lagos-house",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
